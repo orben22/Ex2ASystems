@@ -12,6 +12,7 @@ using namespace std;
 TEST_CASE("Before the game started") {
     Player p1("Alice");
     Player p2("Bob");
+    CHECK_THROWS(Game(p1, p1));
     Game game(p1, p2);
     CHECK_THROWS(Game(p1, p2));
     CHECK_THROWS(game.printLastTurn());
@@ -21,7 +22,8 @@ TEST_CASE("Before the game started") {
     CHECK(((p1.stacksize()==26) && (p2.stacksize()==26)));
     CHECK(((p1.cardesTaken()==0) && (p2.cardesTaken()==0)));
     CHECK_NOTHROW(game.playTurn());
-};
+}
+
 TEST_CASE("During the game"){
     Player p1("Alice");
     Player p2("Bob");
@@ -39,7 +41,7 @@ TEST_CASE("During the game"){
     CHECK_NOTHROW(game.printStats());
     CHECK_NOTHROW(game.playTurn());
     CHECK_NOTHROW(game.playAll());
-};
+}
 
 TEST_CASE("After the game finished"){
     Player p1("Alice");
@@ -54,4 +56,4 @@ TEST_CASE("After the game finished"){
     CHECK_NOTHROW(game.printLastTurn());
     CHECK_NOTHROW(game.printStats());
     CHECK_NOTHROW(game.printLog());
-};
+}
