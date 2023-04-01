@@ -20,7 +20,7 @@ TEST_CASE("Before the game started") {
     CHECK_THROWS(game.printLog());
     CHECK_NOTHROW(game.printStats());
     CHECK(((p1.stacksize()==26) && (p2.stacksize()==26)));
-    CHECK(((p1.cardesTaken()==0) && (p2.cardesTaken()==0)));
+    CHECK(((p1.cardsTaken() == 0) && (p2.cardsTaken() == 0)));
     CHECK_NOTHROW(game.playTurn());
 }
 
@@ -32,7 +32,7 @@ TEST_CASE("During the game"){
     CHECK_THROWS(game.printWiner());
     CHECK_NOTHROW(game.printLastTurn());
     CHECK_THROWS(game.printLog());
-    CHECK(((p1.cardesTaken()>0) || (p2.cardesTaken()>0)));
+    CHECK(((p1.cardsTaken() > 0) || (p2.cardsTaken() > 0)));
     CHECK(((p1.stacksize()<26)&&(p2.stacksize()<26)));
     int x1=p1.stacksize();
     int x2=p2.stacksize();
@@ -51,7 +51,7 @@ TEST_CASE("After the game finished"){
     CHECK_THROWS(game.playTurn());
     CHECK_THROWS(game.playAll());
     CHECK(((p1.stacksize()==0) && (p2.stacksize()==0)));
-    CHECK(((p1.cardesTaken()<=52) && (p2.cardesTaken()<=52) && (p1.cardesTaken()>=0) && (p2.cardesTaken()>=0)));
+    CHECK(((p1.cardsTaken() <= 52) && (p2.cardsTaken() <= 52) && (p1.cardsTaken() >= 0) && (p2.cardsTaken() >= 0)));
     CHECK_NOTHROW(game.printWiner());
     CHECK_NOTHROW(game.printLastTurn());
     CHECK_NOTHROW(game.printStats());

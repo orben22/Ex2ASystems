@@ -3,5 +3,6 @@
 using namespace ariel;
 
 
-ariel::Card::Card(std::string value, std::string pic): value(value),pic(pic) {};
+ariel::Card::Card(cardValue value, cardPic pic):value(value),pic(pic){};
 ariel::Card::~Card() {};
+

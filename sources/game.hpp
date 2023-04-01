@@ -7,6 +7,9 @@
 
 #include "player.hpp"
 #include "card.hpp"
+#include "vector"
+#include <algorithm>
+#include <random>
 #include "iostream"
 
 using namespace std;
@@ -15,7 +18,8 @@ class Game {
 private: // data members
     Player p1;
     Player p2;
-    Card *card;
+    vector<Card> deck;
+    int const playerDeckSize=26;
 public:
     Game(Player &p1, Player &p2); // constructor
     ~Game(); // destructor
@@ -31,6 +35,18 @@ public:
     void printLog();
 
     void printStats();
+
+    void generateDeck();
+
+    const Player &getP1() const;
+
+    const Player &getP2() const;
+
+    const vector<Card> &getDeck() const;
+
+    void setDeck(const vector<Card> &deck);
+
+    void shuffleDeck();
 };
 
 }
