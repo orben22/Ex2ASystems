@@ -7,22 +7,25 @@
 
 #include "player.hpp"
 #include "card.hpp"
-#include "vector"
+#include <vector>
 #include <algorithm>
 #include <random>
-#include "iostream"
+#include <iostream>
 
 using namespace std;
 namespace ariel{
 class Game {
 private: // data members
-    Player p1;
-    Player p2;
+    Player& player1;
+    Player& player2;
     vector<Card> deck;
     int const playerDeckSize=26;
+    vector<string> turns;
+    int numOfTurns;
+    enum whowins winner;
+
 public:
-    Game(Player &p1, Player &p2); // constructor
-    ~Game(); // destructor
+    Game(Player &player1, Player &player2); // constructor
 
     void playTurn();
 
@@ -46,7 +49,15 @@ public:
 
     void setDeck(const vector<Card> &deck);
 
-    void shuffleDeck();
+    void shuffleDeck(vector<Card> deck);
+
+    whowins checkturn();
+
+    void determineWinner();
+
+    whowins getWinner() const;
+
+    void setWinner(whowins newwinner);
 };
 
 }

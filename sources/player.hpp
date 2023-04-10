@@ -8,29 +8,63 @@
 #include "iostream"
 #include "card.hpp"
 #include "vector"
+
 using namespace std;
-namespace ariel{
+namespace ariel {
 
-class Player {
-private: // data members
-    string name; // the name of the Player
-    vector<Card> deck; // the player's cards deck
-public:
-    Player(string name); // constructor
-    ~Player(); // destructor
-    int stacksize();
-    int cardsTaken();
+    class Player {
+    private: // data members
+        string name; // the name of the Player
+        vector<Card> deck; // the player's cards deck
+        int taken;
+        int wins;
+        int draw;
+        double winrate;
+        double drawrate;
+        bool isplaying;
+    public:
+        explicit Player(string name); // constructor
 
-    const string &getName() const;
+        int stacksize() const;
 
-    void setName(const string &name);
+        int cardesTaken() const;
 
-    const vector<Card> &getDeck() const;
+        const string &getName() const;
 
-    void setDeck(const vector<Card> &deck);
-};
+        vector<Card> getDeck();
+
+        int gettaken() const;
+
+        void setDeck(const vector<Card> &deck);
+
+        void settaken(int newtaken);
+
+        void addtaken(int newtaken);
+
+        void increaseWins();
+
+        int getWins() const;
+
+        int getDraw() const;
+
+        void increaseDraw();
+
+        bool getIsplaying() const;
+
+        void setIsplaying();
+
+        double getWinrate() const;
+
+        void setWinrate(int numofturns, bool won);
+
+        double getDrawrate() const;
+
+        void setDrawrate(int numofturns);
+
+        string toString() const;
+
+        void throwCardFromDeck();
+    };
 
 }
-
-
 #endif //CARDWAR_A_MAIN_PLAYER_H

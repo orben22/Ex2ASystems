@@ -9,11 +9,14 @@
 
 using namespace std;
 namespace ariel{
+    enum whowins{
+        Player1Win=1,Player2Win=2,Draw=0,NoWinner=-1
+    };
     enum cardPic {
         Hearts = 1, Clubs = 2, Spades = 3, Diamonds = 4
     };
     enum cardValue {
-        A = 1,
+        Ace = 1,
         Two = 2,
         Three = 3,
         Four = 4,
@@ -23,9 +26,9 @@ namespace ariel{
         Eight = 8,
         Nine = 9,
         Ten = 10,
-        J = 11,
-        Q = 12,
-        K = 13
+        Jack = 11,
+        Queen = 12,
+        King = 13
     };
 class Card {
 private: // data members
@@ -33,7 +36,12 @@ private: // data members
     cardPic pic; // holds the picture of the card (Hearts, Clubs, Spades, Diamonds)
 public:
     Card(cardValue value, cardPic pic); // constructor
-    ~Card(); // destructor
+
+    const whowins compare(Card other) const;
+    int getintValue();
+    string getstringValue();
+    string getPic();
+    string toString();
 };
 
 }
