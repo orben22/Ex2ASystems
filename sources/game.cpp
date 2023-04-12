@@ -7,8 +7,8 @@ ariel::Game::Game(ariel::Player &player1, ariel::Player &player2) : player1(play
 
     generateDeck();
     shuffleDeck(this->deck);
-    vector<Card> player1Deck(getDeck().begin(), getDeck().begin() + this->playerDeckSize);
-    vector<Card> player2Deck(getDeck().begin() + this->playerDeckSize, getDeck().end());
+    vector <Card> player1Deck(getDeck().begin(), getDeck().begin() + this->playerDeckSize);
+    vector <Card> player2Deck(getDeck().begin() + this->playerDeckSize, getDeck().end());
     this->player1.setDeck(player1Deck);
     this->player2.setDeck(player2Deck);
 };
@@ -27,8 +27,8 @@ void ariel::Game::playTurn() {
     if (this->winner != NoWinner) throw std::logic_error("the game ended... can't play another turn");
     this->numOfTurns++;
     int countDraw = 0;
-    vector<Card> throws1;
-    vector<Card> throws2;
+    vector <Card> throws1;
+    vector <Card> throws2;
     whowins temp = checkturn();
     throws1.push_back(this->player1.getDeck().back());
     throws2.push_back(this->player2.getDeck().back());
@@ -82,7 +82,12 @@ void ariel::Game::playTurn() {
 
 void ariel::Game::printLastTurn() {
     if (this->numOfTurns == 0) throw std::logic_error("There were no turns yet in this game");
-    cout << this->turns.back() << endl;
+    string strtemp = this->turns.back();
+    for (int i = this->turns.size() - 2; i >= 0; i--) {
+        if (turns.at((size_t) i).find("draw") == string::npos) break;
+        else strtemp.insert(0, this->turns.at((size_t) i));
+    }
+    cout << strtemp << endl;
 };
 
 void ariel::Game::printLog() {
@@ -91,9 +96,8 @@ void ariel::Game::printLog() {
     for (const string &thisturn: turns) {
         if (thisturn.find("Draw") == string::npos) {
             strtemp += thisturn;
-            std::cout << strtemp << std::endl;
+            cout << strtemp << endl;
             strtemp = "";
-            strtemp += thisturn;
         } else strtemp += thisturn;
     }
 };
@@ -105,14 +109,14 @@ void ariel::Game::printStats() {
 };
 
 void ariel::Game::printWiner() {
-    if (winner == Player1Win) cout << player1.getName() << " is the winner";
-    if (winner == Player2Win) cout << player2.getName() << " is the winner";
-    if (winner == Draw) cout << "the game ends in a draw";
-    else cout << "their is no winner yet";
+    if (winner == Player1Win) cout << player1.getName() << " is the winner" << endl;
+    else if (winner == Player2Win) cout << player2.getName() << " is the winner" << endl;
+    else if (winner == Draw) cout << "the game ends in a draw" << endl;
+    else cout << "their is no winner yet" << endl;
 };
 
 void Game::generateDeck() {
-    vector<Card> deck;
+    vector <Card> deck;
     for (int i = 0; i < 13; i++) {
         for (int j = 0; j < 4; j++) {
             Card c(cardValue(i + 1), cardPic(j + 1));
@@ -130,15 +134,15 @@ const Player &Game::getP2() const {
     return player2;
 }
 
-const vector<Card> &Game::getDeck() const {
+const vector <Card> &Game::getDeck() const {
     return deck;
 }
 
-void Game::setDeck(const vector<Card> &newdeck) {
+void Game::setDeck(const vector <Card> &newdeck) {
     Game::deck = newdeck;
 }
 
-void Game::shuffleDeck(vector<Card> decktoshuff) {
+void Game::shuffleDeck(vector <Card> decktoshuff) {
     random_device rand;
     mt19937 g(rand());// random number generator
     shuffle(decktoshuff.begin(), decktoshuff.end(), g);
