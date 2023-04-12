@@ -36,7 +36,7 @@ void ariel::Game::playTurn() {
     this->player1.throwCardFromDeck();
     this->player2.throwCardFromDeck();
     while (temp == Draw) {
-        if (this->player1.getDeck().size() < 2 || this->player2.getDeck().size() < 2) {
+        if (this->player1.stacksize() < 2 || this->player2.stacksize() < 2) {
             if (countDraw > 0) {
                 for (size_t i = 0; i < this->player1.getDeck().size() && i < this->player2.getDeck().size(); i++) {
                     throws1.push_back(this->player1.getDeck().at(i));
@@ -46,17 +46,17 @@ void ariel::Game::playTurn() {
                 this->shuffleDeck(throws2);
                 this->player1.setDeck(throws1);
                 this->player2.setDeck(throws2);
-                cout << "+++++++++++++++throws1 size " << throws1.size() << endl;
                 throws1.clear();
                 throws2.clear();
-                cout << "+++++++++++++++player size " << player1.stacksize() << endl;
-                sleep(1);
                 continue;
-            } else {
+            } else if (this->player1.getDeck().size() == 1 || this->player2.getDeck().size() == 1) {
                 this->player1.addtaken(2);
                 this->player2.addtaken(2);
-                this->player1.getDeck().clear();
-                this->player2.getDeck().clear();
+                this->determineWinner();
+                return;
+            } else if (this->player1.getDeck().size() == 0 || this->player2.getDeck().size() == 0) {
+                this->player1.addtaken(1);
+                this->player2.addtaken(1);
                 this->determineWinner();
                 return;
             }
@@ -64,24 +64,24 @@ void ariel::Game::playTurn() {
         countDraw++;
         this->player1.setDrawrate(numOfTurns); // increase number of draws for each player
         this->player2.setDrawrate(numOfTurns);
-        if (this->player1.stacksize() >= 2 && this->player2.stacksize() >= 2) {
-            throws1.push_back(this->player1.getDeck().back());
-            throws2.push_back(this->player2.getDeck().back());
-            this->player1.throwCardFromDeck();
-            this->player2.throwCardFromDeck();
-            temp = checkturn();
-            throws1.push_back(this->player1.getDeck().back());
-            throws2.push_back(this->player2.getDeck().back());
-            this->player1.throwCardFromDeck();
-            this->player2.throwCardFromDeck();
-        }
+        throws1.push_back(this->player1.getDeck().back());
+        throws2.push_back(this->player2.getDeck().back());
+        this->player1.throwCardFromDeck();
+        this->player2.throwCardFromDeck();
+        temp = checkturn();
+        throws1.push_back(this->player1.getDeck().back());
+        throws2.push_back(this->player2.getDeck().back());
+        this->player1.throwCardFromDeck();
+        this->player2.throwCardFromDeck();
     }
     if (temp == Player1Win) {
+
         this->player1.addtaken((int) (throws2.size() + throws1.size()));
         this->player2.setWinrate(numOfTurns, false);
         this->player1.setWinrate(numOfTurns, true);
     }
     if (temp == Player2Win) {
+
         this->player2.addtaken((int) (throws2.size() + throws1.size()));
         this->player2.setWinrate(numOfTurns, true);
         this->player1.setWinrate(numOfTurns, false);
@@ -119,10 +119,10 @@ void ariel::Game::printStats() {
 };
 
 void ariel::Game::printWiner() {
-    if (winner == Player1Win) cout << player1.getName() << " is the winner";
-    if (winner == Player2Win) cout << player2.getName() << " is the winner";
-    if (winner == Draw) cout << "the game ends in a draw";
-    else cout << "their is no winner yet";
+    if (winner == Player1Win) cout << player1.getName() << " is the winner" << endl;
+    else if (winner == Player2Win) cout << player2.getName() << " is the winner" << endl;
+    else if (winner == Draw) cout << "the game ends in a draw" << endl;
+    else cout << "there is no winner yet" << endl;
 };
 
 void Game::generateDeck() {
@@ -181,8 +181,8 @@ whowins Game::checkturn() {
 }
 
 void Game::determineWinner() {
-    player1.getDeck().clear();
-    player2.getDeck().clear();
+    player1.clearDeck();
+    player2.clearDeck();
     if (this->player1.gettaken() > this->player2.gettaken()) this->winner = Player1Win;
     else if (this->player1.gettaken() < this->player2.gettaken()) this->winner = Player2Win;
     else this->winner = Draw;

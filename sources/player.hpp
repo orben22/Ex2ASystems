@@ -37,6 +37,7 @@ namespace ariel {
 
         void setDeck(const vector<Card> &deck);
 
+        void clearDeck();
         void settaken(int newtaken);
 
         void addtaken(int newtaken);

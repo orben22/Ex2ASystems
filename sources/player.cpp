@@ -15,16 +15,20 @@ const string &Player::getName() const {
     return name;
 };
 
-vector<Card> Player::getDeck() {
+vector <Card> Player::getDeck() {
     return deck;
 };
 
-void Player::setDeck(const vector<Card> &newdeck) {
+void Player::setDeck(const vector <Card> &newdeck) {
     Player::deck = newdeck;
 };
 
 void Player::settaken(const int newtaken) {
     this->taken = newtaken;
+}
+
+void Player::clearDeck() {
+    this->deck.clear();
 }
 
 int Player::gettaken() const {
@@ -61,8 +65,8 @@ double Player::getWinrate() const {
 
 void Player::setWinrate(int numofturns, bool won) {
     if (won) this->increaseWins();
-    if (numofturns!=0) Player::winrate = 100 * (((double) this->wins) / numofturns);
-    else Player::winrate=0;
+    if (numofturns != 0) Player::winrate = 100 * (((double) this->wins) / numofturns);
+    else Player::winrate = 0;
 }
 
 double Player::getDrawrate() const {
@@ -71,8 +75,8 @@ double Player::getDrawrate() const {
 
 void Player::setDrawrate(int numofturns) {
     increaseDraw();
-    if (numofturns!=0) Player::drawrate = 100 * (((double) this->draw) / numofturns);
-    else Player::drawrate=0;
+    if (numofturns != 0) Player::drawrate = 100 * (((double) this->draw) / numofturns);
+    else Player::drawrate = 0;
 }
 
 string Player::toString() const {
@@ -92,4 +96,5 @@ void Player::throwCardFromDeck() {
 void Player::addtaken(int newtaken) {
     this->taken += newtaken;
 };
+
 
