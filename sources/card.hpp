@@ -8,9 +8,9 @@
 #include "iostream"
 
 using namespace std;
-namespace ariel{
-    enum whowins{
-        Player1Win=1,Player2Win=2,Draw=0,NoWinner=-1
+namespace ariel {
+    enum whoWins {
+        Player1Win = 1, Player2Win = 2, Draw = 0, NoWinner = -1
     };
     enum cardPic {
         Hearts = 1, Clubs = 2, Spades = 3, Diamonds = 4
@@ -30,19 +30,24 @@ namespace ariel{
         Queen = 12,
         King = 13
     };
-class Card {
-private: // data members
-    cardValue value; // holds the value of the card (A,2,3,...,J,Q,K)
-    cardPic pic; // holds the picture of the card (Hearts, Clubs, Spades, Diamonds)
-public:
-    Card(cardValue value, cardPic pic); // constructor
 
-    const whowins compare(Card other) const;
-    int getintValue();
-    string getstringValue();
-    string getPic();
-    string toString();
-};
+    class Card {
+    private: // data members
+        cardValue value; // holds the value of the card (A,2,3,...,J,Q,K)
+        cardPic pic; // holds the picture of the card (Hearts, Clubs, Spades, Diamonds)
+    public:
+        Card(cardValue value, cardPic pic); // constructor
+
+        whoWins compare(Card other) const;
+
+        int getintValue();
+
+        string getStringValue();
+
+        string getPic();
+
+        string toString();
+    };
 
 }
 

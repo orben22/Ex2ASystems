@@ -19,9 +19,9 @@ namespace ariel {
         int taken;
         int wins;
         int draw;
-        double winrate;
-        double drawrate;
-        bool isplaying;
+        double winRate;
+        double drawRate;
+        bool isPlaying;
     public:
         explicit Player(string name); // constructor
 
@@ -33,38 +33,28 @@ namespace ariel {
 
         vector<Card> getDeck();
 
-        int gettaken() const;
+        void setDeck(const vector<Card> &newDeck);
 
-        void setDeck(const vector<Card> &deck);
+        void addTaken(int amountToAdd);
 
-        void clearDeck();
-        void settaken(int newtaken);
 
-        void addtaken(int newtaken);
+        bool getIsPlaying() const;
 
-        void increaseWins();
+        void setWinRate(int numOfTurns, bool won);
 
-        int getWins() const;
-
-        int getDraw() const;
-
-        void increaseDraw();
-
-        bool getIsplaying() const;
-
-        void setIsplaying();
-
-        double getWinrate() const;
-
-        void setWinrate(int numofturns, bool won);
-
-        double getDrawrate() const;
-
-        void setDrawrate(int numofturns);
+        void setDrawRate(int numOfTurns);
 
         string toString() const;
 
         void throwCardFromDeck();
+
+        void clearDeck();
+
+    private:
+        void increaseWins();
+
+        void increaseDraw();
+
     };
 
 }

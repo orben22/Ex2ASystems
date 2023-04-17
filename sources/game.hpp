@@ -13,52 +13,51 @@
 #include <iostream>
 
 using namespace std;
-namespace ariel{
-class Game {
-private: // data members
-    Player& player1;
-    Player& player2;
-    vector<Card> deck;
-    int const playerDeckSize=26;
-    vector<string> turns;
-    int numOfTurns;
-    enum whowins winner;
+namespace ariel {
+    class Game {
+    private: // data members
+        Player &player1;
+        Player &player2;
+        vector<Card> deck;
+        int const playerDeckSize = 26;
+        vector<string> turns;
+        int numOfTurns;
+        enum whoWins winner;
 
-public:
-    Game(Player &player1, Player &player2); // constructor
+    public:
+        Game(Player &player1, Player &player2); // constructor
 
-    void playTurn();
+        void playTurn();
 
-    void printLastTurn();
+        void printLastTurn();
 
-    void playAll();
+        void playAll();
 
-    void printWiner();
+        void printWiner();
 
-    void printLog();
+        void printLog();
 
-    void printStats();
+        void printStats();
 
-    void generateDeck();
+        const Player &getP1() const;
 
-    const Player &getP1() const;
+        const Player &getP2() const;
 
-    const Player &getP2() const;
+    private:
+        void generateDeck();
 
-    const vector<Card> &getDeck() const;
+        void determineWinner();
 
-    void setDeck(const vector<Card> &deck);
+        whoWins checkTurn();
 
-    void shuffleDeck(vector<Card> &deck);
+        static void shuffleDeck(vector<Card> &deckToShuffle);
 
-    whowins checkturn();
+        const vector<Card> &getDeck() const;
 
-    void determineWinner();
+        void setDeck(const vector<Card> &newDeck);
 
-    whowins getWinner() const;
 
-    void setWinner(whowins newwinner);
-};
+    };
 
 }
 
